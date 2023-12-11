@@ -1,8 +1,8 @@
 # Tex distributions
-[https://www.tug.org/interest.html#free]
+https://www.tug.org/interest.html#free
 
 ## MiKTex
-[https://miktex.org/]
+https://miktex.org/
 
 # Tex
 
@@ -26,7 +26,7 @@ Create gif
 
 # Lua
 
-```
+```tex
 \usepackage{luacode} % Include in preamble
 
 \begin{luacode*}
