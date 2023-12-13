@@ -1,0 +1,36 @@
+\documentclass[tikz]{standalone}
+\usepackage{tikz}
+\usetikzlibrary{cd}
+
+\begin{document}
+
+\begin{tikzcd}[
+  row sep=5em, 
+  column sep=normal, 
+  math mode=false, 
+  font=\sffamily, 
+  every label/.append style = {font = \scriptsize}
+]
+  & Magma 
+    \arrow[dl, red, "divisibility" {gray, description}] 
+    \arrow[d, blue, "identity" {gray, description}] 
+    \arrow[dr, green, "associativity" {gray, description}] & \\
+  Quasigroup 
+    \arrow[d, blue, "identity" {gray, description}] 
+    \arrow[dr, green, "associativity" {gray, near end, description}] &
+  Unital magma 
+    \arrow[dl, red, "invertibility" {gray, near start, description}] 
+    \arrow[dr, green, "associativity" {gray, near start, description}] & 
+  Semigroup 
+    \arrow[dl, red, "divisibility" {gray, near end, description}] 
+    \arrow[d, blue, "identity" {gray, description}] \\
+  Loop 
+    \arrow[dr, green, "associativity" {gray, description}] & 
+  Associative group 
+    \arrow[d, blue, "identity" {gray, description}] & 
+  Monoid 
+    \arrow[dl, red, "invertibility" {gray, description}] \\
+  & Group &
+\end{tikzcd}
+
+\end{document}
