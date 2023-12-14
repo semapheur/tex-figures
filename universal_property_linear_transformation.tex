@@ -1,0 +1,13 @@
+\documentclass[tikz]{standalone}
+\usepackage{amssymb}
+\usepackage{tikz}
+\usetikzlibrary{cd}
+
+\begin{document}
+
+\begin{tikzcd}[row sep=large, column sep=huge, every label/.append style = {font = \scriptsize}]
+  V \arrow[d, "\mathrm{P}_S" swap] \arrow[r, "\mathrm{T} = \mathrm{T}' \circ \mathrm{P}_S"] & W \\
+  V/S \arrow[ru, "\mathrm{T}'" swap] &
+\end{tikzcd}
+
+\end{document}

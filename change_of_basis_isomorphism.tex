@@ -6,12 +6,12 @@
 \begin{document}
 
 \begin{tikzcd}[row sep=huge, column sep=8em, every label/.append style = {font = \scriptsize}]
-  \mathbb{F}^n \arrow[r, "\psi_{C'} \circ f \circ \phi_{B'}^{-1}"] & \mathbb{F}^m \\
+  \mathbb{F}^n \arrow[r, "\psi_{C'} \circ \mathrm{T} \circ \phi_{B'}^{-1}"] & \mathbb{F}^m \\
   V 
-    \arrow[u, "\phi_{B'}"] \arrow[d, "\phi_B"]  \arrow[r, "f"] & 
+    \arrow[u, "\phi_{B'}"] \arrow[d, "\phi_B"]  \arrow[r, "\mathrm{T}"] & 
   W 
     \arrow[u, "\psi_{C'}"] \arrow[d, "\psi_C"] \\
-  \mathbb{F}^n \arrow[r, "\psi_C \circ f \circ \phi_B^{-1}"] & \mathbb{F}^m
+  \mathbb{F}^n \arrow[r, "\psi_C \circ \mathrm{T} \circ \phi_B^{-1}"] & \mathbb{F}^m
 \end{tikzcd}
 
 \end{document}
