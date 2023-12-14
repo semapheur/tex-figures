@@ -1,0 +1,14 @@
+\documentclass[tikz]{standalone}
+\usepackage{amssymb}
+\usepackage{tikz}
+\usetikzlibrary{cd}
+
+\begin{document}
+
+\begin{tikzcd}[row sep=large, column sep=large, every label/.append style = {font = \scriptsize}]
+  A \arrow[r, "f"] \arrow[dr, "f\circ g" swap] \arrow[in=120, out=150, loop, "\mathrm{id}_A"] &
+  B \arrow[d, "g"] \arrow[in=30, out=60, loop, "\mathrm{id}_B"] \\
+  & C \arrow[in=300, out=330, loop, "\mathrm{id}_C"]
+\end{tikzcd}
+
+\end{document}
