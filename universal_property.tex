@@ -1,12 +1,13 @@
 \documentclass[tikz]{standalone}
-\usepackage{amssymb}
 \usepackage{tikz}
 \usetikzlibrary{cd}
 
 \begin{document}
 
 \begin{tikzcd}[row sep=large, column sep=large, every label/.append style = {font = \scriptsize}]
-  B \arrow[r, "u"] \arrow[dr, "f" swap] & F(A) \arrow[d, "F(h)", dashed] & A \arrow[d, "h", dashed] \\
+  B \arrow[r, "u"] \arrow[dr, "f" swap] & 
+  F(A) \arrow[d, "F(h)", dashed] & 
+  A \arrow[d, "h", dashed] \\
   & F(A') & A'
 \end{tikzcd}
 

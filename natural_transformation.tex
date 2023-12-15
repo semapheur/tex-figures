@@ -1,0 +1,15 @@
+\documentclass[tikz]{standalone}
+\usepackage{amssymb}
+\usepackage{tikz}
+\usetikzlibrary{cd}
+
+\begin{document}
+
+\begin{tikzcd}[cramped, sep=normal, every label/.append style = {font = \scriptsize}]
+  \mathcal{A} 
+    \arrow[r, bend left=50, "F", ""{name=U, below}] 
+    \arrow[r, bend right=50, "G" swap, ""{name=D}] &
+  \mathcal{B} \arrow[Rightarrow, "\alpha", from=U, to=D]
+\end{tikzcd}
+
+\end{document}
