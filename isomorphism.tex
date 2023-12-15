@@ -1,0 +1,13 @@
+\documentclass[tikz]{standalone}
+\usepackage{amssymb}
+\usepackage{tikz}
+\usetikzlibrary{cd}
+
+\begin{document}
+
+\begin{tikzcd}[row sep=normal, column sep=normal, every label/.append style = {font = \scriptsize}]
+  A \arrow[loop left, "1_A"] \arrow[r, "f", yshift=0.5ex] & 
+  B \arrow[loop right, "1_B"] \arrow[l, "f^{-1}", yshift=-0.5ex]
+\end{tikzcd}
+
+\end{document}

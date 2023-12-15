@@ -6,10 +6,8 @@
 \begin{document}
 
 \begin{tikzcd}[row sep=large, column sep=large, every label/.append style = {font = \scriptsize}]
-  & & S_1 \arrow[dd, "\tau_2"] \\
-  A \arrow[urr, "f_1", bend left] \arrow[r, "f_2"] \arrow[drr, "f_3", bend right] & 
-  S_2 \arrow[ur, "\tau_1"] \arrow[dr, "\tau_3"] & \\
-  & & S_3
+  B \arrow[r, "u"] \arrow[dr, "f" swap] & F(A) \arrow[d, "F(h)", dashed] & A \arrow[d, "h", dashed] \\
+  & F(A') & A'
 \end{tikzcd}
 
 \end{document}
