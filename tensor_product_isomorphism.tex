@@ -1,0 +1,20 @@
+\documentclass[tikz]{standalone}
+\usepackage{amssymb}
+\usepackage{tikz}
+\usetikzlibrary{cd}
+
+\begin{document}
+
+\begin{tikzcd}[row sep=normal, column sep=normal, every label/.append style = {font = \scriptsize}]
+  U\times V 
+    \arrow[rr, bend left, "\otimes"] 
+    \arrow[r, "h"] \arrow[dr, "f" swap] 
+  & L_{U\times V}
+    \arrow[r, "\mathrm{R}"]
+    \arrow[d, dashed, "\mathrm{S}"]
+  & U\otimes V
+    \arrow[dl, dashed, "\mathrm{T}"]
+  \\ & W &
+\end{tikzcd}
+
+\end{document}
