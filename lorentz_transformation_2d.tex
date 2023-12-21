@@ -1,0 +1,186 @@
+\documentclass[tikz]{standalone}
+\usepackage{amsmath}
+\usepackage[outline]{contour} % glow around text
+\usepackage{tikz}
+\usetikzlibrary{arrows.meta, angles, quotes, 
+  decorations.markings, decorations.pathmorphing}
+ 
+% Custom colors
+\colorlet{myred}{red!80!black}
+\colorlet{myblue}{blue!80!black}
+\colorlet{mygreen}{green!80!black}
+\colorlet{mydarkred}{red!55!black}
+\colorlet{mydarkblue}{blue!50!black}
+%\colorlet{mylightblue}{blue!60!black!30}
+\colorlet{mypurple}{blue!40!red!80!black}
+\colorlet{mydarkgreen}{green!50!black}
+\colorlet{mydarkpurple}{blue!40!red!50!black}
+%\colorlet{mylightpurple}{mydarkpurple!80!red!6}
+\colorlet{myorange}{orange!40!yellow!95!black}
+\colorlet{mydarkorange}{orange!40!yellow!85!black}
+ 
+% Tikz styles
+\tikzset{>=latex} % for LaTeX arrow head
+\tikzstyle{world line}=[myblue!60,line width=0.4]
+\tikzstyle{world line t}=[mypurple!60,line width=0.4]
+\tikzstyle{world line'}=[mydarkred!60,line width=0.4]
+\tikzstyle{mysmallarr}=[-{Latex[length=3,width=2]},thin]
+\tikzstyle{mydashed}=[dash pattern=on 3 off 3]
+\tikzstyle{vector}=[->,line width=1,line cap=round]
+\tikzstyle{vector'}=[vector,shorten >=1.2]
+%\tikzstyle{measure}=[{Latex[length=3,width=2]}-{Latex[length=3,width=2]},thin]
+\tikzstyle{particle}=[mygreen,line width=0.9]
+\tikzstyle{photon}=[-{Latex[length=5,width=4]},myorange,line width=0.8,decorate,
+                    decoration={snake,amplitude=1.0,segment length=5,post length=5}]
+ 
+\def\tick#1#2{\draw[thick] (#1) ++ (#2:0.1) --++ (#2-180:0.2)}
+\def\tickp#1#2{\draw[thick, mydarkred] (#1) ++ (#2:0.06) --++ (#2-180:0.12)}
+ 
+\begin{document}
+ 
+% Grid parameters
+\def\dx{0.5}
+\def\xmin{-4}
+\def\xmax{6}
+\def\ymin{-4}
+\def\ymax{6}
+\def\xtmax{4}
+\def\xtmin{-3}
+\def\ytmax{4}
+\def\ytmin{-3}
+ 
+% Lorentz tranformation parameters
+\pgfmathsetmacro{\betaScalar}{0.4}
+\pgfmathsetmacro{\lorentz}{1/sqrt(1 - \betaScalar^2)}
+ 
+\begin{tikzpicture}[]
+ 
+  % Coordinates
+  \coordinate (o) at (0, 0);
+  \coordinate (x') at ({\lorentz*(\xtmax+\dx)}, {\lorentz*\betaScalar*(\xtmax+\dx)});
+  \coordinate (-x') at ({\lorentz*(\xtmin-\dx)}, {\lorentz*\betaScalar*(\xtmin-\dx)});
+  \coordinate (y') at ({\lorentz*\betaScalar*(\ytmax+\dx)}, {\lorentz*(\ytmax+\dx)});
+  \coordinate (-y') at ({\lorentz*\betaScalar*(\ytmin-\dx)}, {\lorentz*(\ytmin-\dx)});  
+ 
+  \coordinate(a) at ({\lorentz*(\xtmin + \betaScalar*\ytmin)}, {\lorentz*(\ytmin + \betaScalar*\xtmin)});
+  \coordinate(b) at ({\lorentz*(\xtmax + \betaScalar*\ytmax)}, {\lorentz*(\ytmax + \betaScalar*\xtmax)});
+ 
+  % Boosted word line area
+  \fill[mydarkred!5] (o) -- ({\lorentz*\xtmax}, {\lorentz*\betaScalar*\xtmax}) 
+    -- (b) -- ({\lorentz*\betaScalar*\ytmax}, {\lorentz*\ytmax}) -- cycle;
+ 
+  \fill[mydarkred!5] (o) -- ({\lorentz*\xtmin}, {\lorentz*\betaScalar*\xtmin}) 
+    -- (a) -- ({\lorentz*\betaScalar*\ytmin}, {\lorentz*\ytmin}) -- cycle;
+ 
+  % Hyperbolic area
+  \fill[mydarkblue!20] plot[variable=\y, samples=50, smooth,
+    domain=0:{\lorentz*\betaScalar*\ytmax},
+  ] ({sqrt(\xtmax^2 + \y^2)}, \y) -- (o) -- (\xtmax, 0);
+ 
+  \fill[mydarkgreen!20] plot[variable=\x, samples=50, smooth,
+    domain=0:{\lorentz*\betaScalar*\xtmax},
+  ] (\x, {sqrt(\x^2 + \ytmax^2)}) -- (o) -- (0, \ytmax);
+ 
+  % World line grid
+  \draw[step=1cm, color=gray] (\xmin,\ymin) grid (\xmax,\xmax);
+ 
+  % World line axes
+  \draw[thick, -latex] (0, {\ymin-\dx}) -- (0, {\ymax+\dx}) node [anchor=east] {$ct$};
+  \draw[thick, -latex] ({\xmin-\dx}, 0) -- ({\xmax+\dx}, 0) node [anchor=north west] {$x$};
+ 
+  % Boosted world line grid
+  \foreach \i in {1,...,\xtmax}{
+    \draw[thin, mydarkred] ({\lorentz*\i}, {\lorentz*\betaScalar*\i})
+      -- ({\lorentz*(\i + \betaScalar*\ytmax)}, {\lorentz*(\ytmax + \betaScalar*\i)});
+    \draw[thin, mydarkred] ({\lorentz*\betaScalar*\i}, {\lorentz*\i})
+      -- ({\lorentz*(\xtmax + \betaScalar*\i)}, {\lorentz*(\i + \betaScalar*\xtmax)});
+  }
+ 
+  \foreach \i in {-1,...,\xtmin}{
+    \draw[thin, mydarkred] ({\lorentz*\i}, {\lorentz*\betaScalar*\i})
+      -- ({\lorentz*(\i + \betaScalar*\ytmin)}, {\lorentz*(\ytmin + \betaScalar*\i)});
+    \draw[thin, mydarkred] ({\lorentz*\betaScalar*\i}, {\lorentz*\i})
+      -- ({\lorentz*(\xtmin + \betaScalar*\i)}, {\lorentz*(\i + \betaScalar*\xtmin)});
+  }
+ 
+  % Boosted world line axes
+  \draw[thick, -latex, mydarkred]
+    (-x') -- (x') node[anchor=west] {$x'$};
+    \draw[thick, -latex, mydarkred]
+    (-y') -- (y') node[anchor=east] {$ct'$};
+ 
+  % Lightcone
+  \draw[thick, myorange]
+    (a) -- (b)
+    (\xmin, -\ymin) -- (-\xmin, \ymin);
+ 
+  % Spacelike hyberbola
+  \draw[thick, myblue] plot[variable=\y, samples=50, smooth, domain=-.9:1]
+    ({\xtmax*cosh(\y)}, {\xtmax*sinh(\y)});
+ 
+  \draw[very thick, mydarkblue,
+    decoration={
+      markings,
+      mark=at position 0.58 with {\arrow{latex}}
+    },
+    postaction={decorate}
+  ] plot[variable=\y, samples=50, 
+    domain=0:{\lorentz*\betaScalar*\ytmax},
+  ] ({sqrt(\xtmax^2 + \y^2)}, \y);
+ 
+  \node[mydarkblue, right=1] at (5,-2)
+    {\contour{white}{$s^2 = c^2t^2-x^2<0$}};
+ 
+  \node[mydarkblue] at (3,0.5) {\contour{mydarkblue!90!black!15}{$\dfrac{x'\phi}{2}$}};
+ 
+  % Timelike hyberbola
+  \draw[thick, mygreen] plot[variable=\y, samples=50, smooth, domain=-.9:1]
+    ({\ytmax*sinh(\y)}, {\ytmax*cosh(\y)});
+ 
+  \draw[very thick, mydarkgreen,
+    decoration={
+      markings,
+      mark=at position 0.58 with {\arrow{latex}}
+    },
+    postaction={decorate}
+  ] plot[variable=\x, samples=50, 
+    domain=0:{\lorentz*\betaScalar*\xtmax},
+  ] (\x, {sqrt(\x^2 + \ytmax^2)});
+ 
+  \node[mydarkgreen, left=.5] at (-0.5,\ymax)
+    {\contour{white}{$s^2 = c^2t^2-x^2>0$}};
+ 
+  \node[mydarkgreen] at (0.5, 3) {\contour{mygreen!90!black!15}{$\dfrac{ct'\phi}{2}$}};
+ 
+  % Ticks
+  \draw[dashed, mydarkblue] ({\lorentz*\xtmax}, 0) 
+    -- ({\lorentz*\xtmax}, {\lorentz*\betaScalar*\xtmax}) -- (0, {\lorentz*\betaScalar*\xtmax});
+ 
+  \draw[dashed, mydarkgreen] (0, {\lorentz*\ytmax}) 
+    -- ({\lorentz*\betaScalar*\ytmax}, {\lorentz*\ytmax}) -- ({\lorentz*\betaScalar*\ytmax}, 0);
+ 
+  \tick{\xtmax, 0}{90} node[mydarkblue, below left=.5] {\scriptsize $x'$};
+  \tick{0, \ytmax}{0} node[mydarkgreen, below left=.5] {\scriptsize $ct'$};
+ 
+  \tick{{\lorentz*\xtmax}, 0}{90} node[mydarkblue, below right=.5]
+    {\contour{white}{\scriptsize $x'\cosh\phi = \gamma x'$}};
+ 
+  \tick{{\lorentz*\betaScalar*\ytmax}, 0}{90} node[mydarkgreen, below=.5]
+    {\contour{white}{\scriptsize $ct'\sinh\phi = \gamma \beta ct'$}};
+ 
+  \tick{0, {\lorentz*\betaScalar*\xtmax}}{0} node[mydarkblue, above left=.5]
+    {\contour{white}{\scriptsize $x'\sinh\phi = \gamma \beta x'$}};
+ 
+  \tick{0, {\lorentz*\ytmax}}{0} node[mydarkgreen, above left=.5]
+    {\contour{white}{\scriptsize $ct'\cosh\phi = \gamma ct'$}};
+ 
+  \fill[mydarkblue] (\xtmax, 0) circle(.05);
+  \fill[mydarkblue] 
+    ({\lorentz*\xtmax}, {\lorentz*\betaScalar*\xtmax}) circle(.05);
+ 
+  \fill[mydarkgreen] (0, \ytmax) circle(.05);
+  \fill[mydarkgreen] 
+    ({\lorentz*\betaScalar*\ytmax}, {\lorentz*\ytmax}) circle(.05);
+ 
+\end{tikzpicture}
+\end{document}
