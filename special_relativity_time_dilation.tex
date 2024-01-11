@@ -1,0 +1,71 @@
+\documentclass[tikz]{standalone}
+\usepackage{amsmath}
+\usepackage[outline]{contour} 
+\usepackage{tikz}
+
+\begin{document}
+
+\colorlet{_red}{red!80!black}
+\colorlet{_blue}{blue!80!black}
+\colorlet{_green}{green!80!black}
+
+\def\b{2}
+\def\min{-0.5}
+\def\xmax{2}
+\def\ymax{3}
+
+\def\beta{0.5}
+\pgfmathsetmacro{\gamma}{1/sqrt(1 - \beta^2)}
+
+\begin{tikzpicture}
+  \coordinate (o) at (0,0);
+  \coordinate (-x') at (\gamma*\min, \gamma*\beta*\min);
+  \coordinate (x') at (\gamma*\xmax, \gamma*\beta*\xmax);
+
+  \coordinate (-y') at (\gamma*\beta*\min, \gamma*\min);
+  \coordinate (y') at (\gamma*\beta*\ymax, \gamma*\ymax);
+
+  \coordinate (l) at ({\gamma*(\xmax + \beta*\ymax)}, {\gamma*(\ymax + \beta*\xmax)});
+  \coordinate (-l) at ({\gamma*(1.0+\beta)*\min}, {\gamma*(1.0+\beta)*\min});
+
+  \coordinate (b) at (0, \b);
+  \coordinate (b') at (\gamma*\beta*\b, \gamma*\b);
+  
+  % Time dilation area
+  \fill[_blue!10] (o) -- (b) -- (b') -- cycle;
+
+  % Boosted area
+  \fill[_red!5] (o) -- (x') -- (l) -- (y') -- cycle;
+  \fill[_red!5] (o) -- (-x') -- (-y') -- cycle;
+
+  % Rest axis
+  \draw[help lines] (o) grid (\xmax,\ymax);
+  \draw[->, thick] (\min, 0) -- (\xmax,0) node[right] {$x$};
+  \draw[->, thick] (0, \min) -- (0, \ymax) node[above] {$ct$};
+  
+  % Boosted grid
+  \foreach \x in {1,...,\xmax}{
+    \draw[thin, _red!50] ({\gamma*\x}, {\gamma*\beta*\x})
+      -- ({\gamma*(\x + \beta*\ymax)}, {\gamma*(\ymax + \beta*\x)});
+  }
+  \foreach \y in {1,...,\ymax} { 
+    \draw[thin, _red!50] ({\gamma*\beta*\y}, {\gamma*\y})
+      -- ({\gamma*(\xmax + \beta*\y)}, {\gamma*(\y + \beta*\xmax)});
+  }
+
+  % Boosted axis
+  \draw[->, thick, _red] (-x') -- (x') node[right] {$x'$};
+  \draw[->, thick, _red] (-y') -- (y') node[above] {$ct'$};
+
+  \draw[very thick, _blue!50] (o) 
+    -- (b) node[midway, left, text=_blue!50] {$c\Delta t$}
+    -- (b') node[midway, above, text=_blue!50] {$\Delta x'$}
+    -- (o) node[midway, right, text=_blue!50] {\contour{_red!5}{$c\Delta t'$}};
+
+  \fill[_blue] (o) circle (2pt) node[above left,text=_blue] {$\mathrm{A}$};
+  \fill[_blue] (b) circle (2pt) node[left, text=_blue] {$\mathrm{B}$};
+  \fill[_blue] (b') circle (2pt) node[right, text=_blue] {\contour{_red!5}{$\mathrm{B}'$}};
+
+\end{tikzpicture}
+
+\end{document}
