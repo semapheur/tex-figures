@@ -1,0 +1,14 @@
+\documentclass[tikz]{standalone}
+\usepackage{tikz}
+\usepackage{amssymb}
+\usetikzlibrary{cd}
+
+\begin{document}
+
+\begin{tikzcd}
+  U \arrow[r, bend left=50, "\mathrm{T}"] \arrow[rr, bend left=100, "\mathrm{S}\mathrm{T}"] & 
+  V \arrow[l, bend left=50, "\mathrm{T}^{-1}"] \arrow[r, bend left=50, "\mathrm{S}"]  &
+  W \arrow[l, bend left=50, "\mathrm{S}^{-1}"] \arrow[ll, bend left=100, "(\mathrm{S}\mathrm{T})^{-1} = \mathrm{T}^{-1}\mathrm{S}^{-1}"]
+\end{tikzcd}
+
+\end{document}
