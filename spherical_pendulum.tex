@@ -1,0 +1,47 @@
+\documentclass[tikz]{standalone}
+\usepackage{asymptote}
+\usepackage{lmodern}
+
+\begin{document}
+\begin{asy}
+  import three;
+  import palette;
+
+  size(200,200);
+
+  currentprojection=perspective(6,3,2);
+
+  // Parameters
+  real r = 2;  // radius of the pendulum's path
+  real theta = 60;  // angle from vertical (in degrees)
+  real phi = 30;   // angle around vertical axis (in degrees)
+
+  // Convert to radians
+  theta = theta * pi / 180;
+  phi = phi * pi / 180;
+
+  // Calculate pendulum position
+  triple pendulum_pos = r * (sin(theta)*cos(phi), sin(theta)*sin(phi), -cos(theta));
+
+  // Draw the sphere (pendulum's path)
+  draw(surface(sphere(O, r)), opacity(0.1)+lightblue);
+
+  // Draw the pendulum string
+  draw(O -- pendulum_pos, linewidth(0.5pt)+gray);
+
+  // Draw the pendulum bob
+  draw(shift(pendulum_pos)*scale3(0.1)*unitsphere, red);
+
+  // Draw coordinate axes
+  draw(O -- 1.2r*X, arrow=Arrow3, L=Label("x", position=EndPoint));
+  draw(O -- 1.2r*Y, arrow=Arrow3, L=Label("y", position=EndPoint));
+  draw(O -- 1.2r*Z, arrow=Arrow3, L=Label("z", position=EndPoint));
+
+  // Draw the vertical axis
+  draw(O -- -1.2r*Z, dashed);
+
+  // Label the angles
+  label("$\theta$", (0.7r*sin(theta/2), 0, -0.7r*cos(theta/2)), E);
+  arc(O, 0.7r*X, -0.7r*Z, phi, L=Label("$\phi$", position=MidPoint));
+\end{asy}
+\end{document}
