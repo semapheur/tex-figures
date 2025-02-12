@@ -31,8 +31,8 @@
   \draw[canvas is zx plane at y=0, green, dashed] (0,0) circle (\rvec);
 
   % Eigenstates
-  \draw plot [mark=*, mark size=1] (0, 0, \rvec) node[anchor=south, shift=({-0.3,0})] {\scriptsize $\ket{1} = \ket{\uparrow_{\hat{\mathbf{z}}}}$};
-  \draw plot [mark=*, mark size=1] (0, 0, -\rvec) node[anchor=north, shift=({0.3,0})] {\scriptsize $\ket{0} = \ket{\downarrow_{\hat{\mathbf{z}}}}$};
+  \draw plot [mark=*, mark size=1] (0, 0, \rvec) node[anchor=south, shift=({-0.3,0})] {\scriptsize $\ket{0} = \ket{\uparrow_{\hat{\mathbf{z}}}}$};
+  \draw plot [mark=*, mark size=1] (0, 0, -\rvec) node[anchor=north, shift=({0.3,0})] {\scriptsize $\ket{1} = \ket{\downarrow_{\hat{\mathbf{z}}}}$};
 
   \draw plot [mark=*, mark size=1] (0, \rvec, 0) node[anchor=west, shift=({0,0.2})] {\scriptsize $\ket{i} = \ket{\uparrow_{\hat{\mathbf{y}}}}$};
   \draw plot [mark=*, mark size=1] (0, -\rvec, 0) node[anchor=east, shift=({0,-0.2})] {\scriptsize $\ket{-i} = \ket{\downarrow_{\hat{\mathbf{y}}}}$};
@@ -42,7 +42,7 @@
 
   % Qubit
   \tdplotsetcoord{P}{\rvec}{\thetavec}{\phivec};
-  \draw[thick,->,color=blue] (0,0,0) -- (P) node[anchor=south west] {\scriptsize $\ket{\psi} = \ket{\uparrow_{\hat{\mathbf{n}(\theta,\phi)}}}$};
+  \draw[thick,->,color=blue] (0,0,0) -- (P) node[anchor=south west] {\scriptsize $\ket{\psi} = \ket{\uparrow_{\hat{\mathbf{n}}(\theta,\phi)}}$};
   \draw[dashed, color=blue] (O) -- (Pxy);
   \draw[dashed, color=blue] (P) -- (Pxy);
 
