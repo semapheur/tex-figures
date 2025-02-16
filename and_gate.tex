@@ -1,0 +1,14 @@
+\documentclass[tikz, border=5pt]{standalone}
+\usepackage{circuitikz}
+
+\begin{document}
+
+\begin{tikzpicture}
+  \ctikzset{logic ports=ieee};
+  \draw (0,0) node[and port] (myand) {}
+  (myand.in 1) node[anchor=east] {$x_1$}
+  (myand.in 2) node[anchor=east] {$x_2$}
+  (myand.out) node[anchor=west] {$x_1 x_2$};
+\end{tikzpicture}
+
+\end{document}
