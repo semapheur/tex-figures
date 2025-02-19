@@ -1,5 +1,10 @@
 @echo off
+setlocal
 
-for /f "tokens=*" %%f in ('dir /b /a-d *.aux *.bbl *.log *.pdf *.synctex.gz') do (
-  del /f /q "%%f"
+set "EXTENSIONS=aux bbl log pdf synctex.gz"
+
+for %%e in (%EXTENSIONS%) do (
+  del /f /q /s "*.%%e"
 )
+
+endlocal
