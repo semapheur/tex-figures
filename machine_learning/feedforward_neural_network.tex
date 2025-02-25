@@ -1,0 +1,39 @@
+\documentclass[border=5pt]{standalone}
+\usepackage{tikz}
+\usepackage{amsmath}
+\usetikzlibrary{graphs, graphdrawing}
+\usegdlibrary{layered} % Layered layout for clarity
+
+\begin{document}
+
+\begin{tikzpicture}
+  \def\xshift{1cm}
+  \def\edgex{1.7cm}
+  \def\dotsx{2.35cm}
+  \def\ya{-8}
+  \def\yb{-9}
+  \def\yc{-12}
+  \def\xa{-0.5}
+  \def\xb{-1.5}
+
+  \graph[layered layout, level distance=2cm,nodes={circle,draw,inner sep=0.1mm, minimum size=1.1cm, font=\footnotesize}] {
+  {x1[as=$x_1$], x2[as=$x_2$], x3[as=$x_{n_0}$, xshift=\xshift]} ->[complete bipartite]
+  {h11[as=$\Phi_1^{(1)}$], h12[as=$\Phi_2^{(1)}$], h13[as=$\Phi_{n_1}^{(1)}$, xshift=\xshift]} ->[matching]
+  {ph11[as=$\bar{\Phi}_1^{(1)}$], ph12[as=$\bar{\Phi}_2^{(1)}$], ph13[as=$\bar{\Phi}_{n_1}^{(1)}$, xshift=\xshift]} ->[complete bipartite]
+  {ph21[as=$\bar{\Phi}_1^{(L-1)}$], ph22[as=$\bar{\Phi}_2^{(L-1)}$], ph23[as=$\bar{\Phi}_{n_{L-1}}^{(L-1)}$, xshift=\xshift]} ->[complete bipartite]
+  {h21[as=$\Phi_1^{(L)}$], h22[as=$\Phi_2^{(L)}$], h23[as=$\Phi_{n_L}^{(L)}$, xshift=\xshift]} ->[complete bipartite]
+  {y1[as=$y_1$], y2[as=$y_2$], y3[as=$y_{n_L}$, xshift=\xshift]}
+  };
+
+  \node[fill=white, minimum width=4cm, inner sep=0pt] at (\edgex,-5) {$\vdots$};
+  \node[draw,fill=gray!20] at (\edgex,-1) {\footnotesize{$\mathbf{x}\mapsto \mathbf{W}^{(1)}\mathbf{x} + \mathbf{b}^{(1)}$}};
+  \node[draw,fill=gray!20] at (\edgex,-3) {\footnotesize{$\boldsymbol{\Phi}^{(1)}\mapsto\sigma_1(\boldsymbol{\Phi}^{(1)})$}};
+  \node[draw,fill=gray!20] at (\edgex,-7) {\footnotesize{$\bar{\boldsymbol{\Phi}}^{(L-1)}\mapsto \mathbf{W}^{(L)}\bar{\boldsymbol{\Phi}}^{(L-1)} + \mathbf{b}^{(L)}$}};
+  \node[draw,fill=gray!20] at (\edgex,-9) {\footnotesize{$\boldsymbol{\Phi}^{(L)}\mapsto\sigma_L(\boldsymbol{\Phi}^{(L)})$}};
+
+  \foreach \i in {0,-2,...,-10} {
+      \node[] at (\dotsx, \i) {$\cdots$};
+    }
+\end{tikzpicture}
+
+\end{document}
