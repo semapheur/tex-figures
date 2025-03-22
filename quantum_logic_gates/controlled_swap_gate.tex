@@ -1,0 +1,21 @@
+\documentclass[tikz, border=1pt]{standalone}
+\usepackage{quantikz}
+
+\begin{document}
+
+\begin{quantikz}[wire types={q,n,n,n,q,n,q,n,q,n,n,n,q}]
+  \lstick{\ket{x_{n_a + n_b}}} &[0.1cm] \ctrl{1}\gategroup[13, style={draw=none}]{$\Lambda_{n_b}^{n_a} (V)$} &[0.1cm] \midstick[13, brackets=none]{$=$} &[0.5cm] \gategroup[13, style={draw=none, fill=gray!20, inner xsep=0.7cm},background]{$S_{n_b 0}^{(n_a + n_b + 1)}$} &[1.5cm] \ctrl{1}\gategroup[13, style={draw=none, fill=gray!20, inner xsep=0.5cm},background]{$\Lambda^{n_a + n_b} (V)$} &[1.5cm] \gategroup[13, style={draw=none, fill=gray!20, inner xsep=0.7cm},background]{$S_{n_b 0}^{(n_a + n_b + 1)}$} &[0.5cm] \\
+  \lstick{\otimes} &&&&&& \\
+  \lstick{\vdots} & \vdots & & & \vdots & & \\
+  \lstick{\otimes} &&&&&& \\
+  \lstick{\ket{x_{n_b + 1}}} & \ctrl{-1}\wire[d][4]{q} & & & \ctrl{-1}\wire[d][4]{q} & & \\
+  \lstick{\otimes} &&&&&& \\
+  \lstick{\ket{x_{n_b}}} & \gate{V} & & \swap{6} & \ctrl{0} & \swap{6} & \\
+  \lstick{\otimes} &&&&&& \\
+  \lstick{\ket{x_{n_b - 1}}} & \ctrl{1} & & & \ctrl{1} & & \\
+  \lstick{\otimes} &&&&&& \\
+  \lstick{\vdots} & \vdots & & & \vdots & & \\
+  \lstick{\otimes} &&&&&& \\
+  \lstick{\ket{x_0}} & \ctrl{-1} & & \targX{} & \gate{V}\wire[u][1]{q} & \targX{} &
+\end{quantikz}
+\end{document}
