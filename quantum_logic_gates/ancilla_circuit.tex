@@ -1,0 +1,18 @@
+\documentclass[tikz, border=1pt]{standalone}
+\usepackage{quantikz}
+
+\begin{document}
+
+\begin{quantikz}[wire types={q,n,n,n,q,n,n,n,n,n}]
+  \lstick{\ket{\psi_{n-1}}} \gategroup[5, style={draw=none, xshift=-1cm}]{\textbf{Input} $\left({}^\P \mathcal{H}^{\otimes n}\right)$} &[2.5cm] \gategroup[10, steps=5, style={inner xsep=2.4cm, inner ysep=0.8cm}]{$\hat{U}$} & \gate[10]{U_1} \gategroup[10, steps=3]{$\hat{U}'$} & & & &[2.5cm] \rstick{\ket{\varphi_{n-1}}} \gategroup[5, style={draw=none, xshift=1.2cm}]{\textbf{Output} $\left({}^\P \mathcal{H}^{\otimes n}\right)$} \\
+  \lstick{\otimes} &&&&&& \rstick{\otimes} \\
+  \lstick{\vdots} &&& \ddots &&& \rstick{\vdots} \\
+  \lstick{\otimes} &&&&&& \rstick{\otimes} \\
+  \lstick{\ket{\psi_0}} &&&& \gate[2]{U_L} && \rstick{\ket{\varphi_{n-1}}} \\[0.5cm]
+  & \lstick{\ket{\omega_i^{(w-1)}}} \gategroup[5, style={draw=none, xshift=-1.1cm}]{\textbf{Ancilla} $\left({}^\P \mathcal{H}^W\right)$} & \setwiretype{q} &&& \rstick{\ket{\omega_f^{(w-1)}}} \gategroup[5, style={draw=none, xshift=1.1cm}]{\textbf{Ancilla} $\left({}^\P \mathcal{H}^W\right)$} & \setwiretype{n} \\
+  & \lstick{\otimes} &&&& \rstick{\otimes} & \\
+  & \lstick{\vdots} && \ddots && \rstick{\vdots} & \\
+  & \lstick{\otimes} &&&& \rstick{\otimes} & \\
+  & \lstick{\ket{\omega_i^{(0)}}} & \setwiretype{q} &&& \rstick{\ket{\omega_f^{(0)}}} & \setwiretype{n}
+\end{quantikz}
+\end{document}
