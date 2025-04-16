@@ -1,0 +1,18 @@
+\documentclass[tikz, border=5pt]{standalone}
+\usepackage{quantikz}
+
+\begin{document}
+\begin{quantikz}[wire types={q,n,q,n,q,n,n,n,q,n,q}]
+  \lstick{\ket{x_{n-1}}} & \gate{H} \gategroup[11, steps=18]{$F$} & \gate{P} & \gate{P} & \ \ldots\ & \gate{P} & \gate{P} &&& \ \ldots\ &&& \ \ldots\ &&&& \swap{10} &&& \rstick[11]{$\hat{F}\ket{x}^n$} \\
+  \lstick{\otimes} &&&&&&&&&&&&&&&&&&& \\
+  \lstick{\ket{x_{n-2}}} && \ctrl{-2} && \ \ldots\ &&& \gate{H} & \gate{P} & \ \ldots\ & \gate{P} & \gate{P} & \ \ldots\ &&&&& \swap{6} && \\
+  \lstick{\otimes} &&&&&&&&&&&&&&&&&&& \\
+  \lstick{\ket{x_{n-3}}} &&& \ctrl{-4} & \ \ldots\ &&&& \ctrl{-2} & \ \ldots\ &&& \ \ldots\ &&&&&& \swap{1} & \\
+  \lstick{\otimes} &&&&&&&&&&&&&&&&&&& \\
+  \lstick{\vdots} &&&&&&&&&&&&&&&&&& \ddots & \\
+  \lstick{\otimes} &&&&&&&&&&&&&&&&&&& \\
+  \lstick{\ket{x_1}} &&&& \ \ldots\ & \ctrl{-8} &&&& \ \ldots\ & \ctrl{-6} && \ \ldots\ & \gate{H} & \gate{P} &&& \targX{} && \\
+  \lstick{\otimes} &&&&&&&&&&&&&&&&&&& \\
+  \lstick{\ket{x_0}} &&&&&& \ctrl{-10} &&&&& \ctrl{-8} &&& \ctrl{-2} & \gate{H} & \targX{} &&&
+\end{quantikz}
+\end{document}
