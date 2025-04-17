@@ -1,0 +1,20 @@
+\documentclass[tikz, border=5pt]{standalone}
+\usepackage{quantikz}
+\usepackage{amssymb}
+
+\begin{document}
+
+\begin{quantikz}[wire types={q,n,n,n,q,n,q,n,n,n,q}]
+  \lstick[5]{$\ket{b}^m$} & \ \ket{b_{m-1}}\ & \gategroup[11, steps=3]{$\hat{U}_\boxplus$} && \gate{X} & \ \ket{a_{m-1} \overset{2}{\oplus}b_{m-1}}\ & \rstick[5]{$\ket{a \boxplus b}^m$} \\[-0.5cm]
+  & \otimes &&&& \otimes & \\[-0.5cm]
+  & \vdots && \ddots && \vdots & \\[-0.3cm]
+  & \otimes &&&& \otimes & \\[-0.4cm]
+  & \ket{b_0} & \gate{X} &&& \ket{a_0 \overset{2}{\oplus} b_0} & \\[-0.3cm]
+  \lstick{\otimes} &&&&&& \rstick{\otimes} \\[-0.2cm]
+  \lstick[5]{$\ket{a}^m$} & \ \ket{a_{m-1}} \ &&& \ctrl{-6} & \ \ket{a_{m-1}}\ & \rstick[5]{$\ket{a}^m$} \\[-0.3cm]
+  & \otimes &&&& \otimes & \\[-0.5cm]
+  & \vdots && \ddots && \vdots & \\[-0.3cm]
+  & \otimes &&&& \otimes & \\[-0.3cm]
+  & \ \ket{a_0}\ & \ctrl{-6} &&& \ \ket{a_0}\ &
+\end{quantikz}
+\end{document}
