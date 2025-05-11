@@ -1,0 +1,11 @@
+\documentclass[tikz, border=5pt]{standalone}
+\usepackage{quantikz}
+\usepackage{amssymb}
+
+\begin{document}
+\begin{quantikz}[wire types={b,b,b}]
+  \lstick{\ket{x}} & \gategroup[3, steps=7]{$\hat{U}_f$} & \gate[2]{A_f} & \ \ket{\psi(x)}\ &&& \gate[2]{B_f} & \ \ket{x}\ & \rstick{\ket{x}} \\
+  \lstick{\otimes} & \ket{\omega_i}\ \wireoverride{n} && \ \ket{f(x)}\ & \gate[2]{U_\boxplus} & \ \ket{f(x)}\ && \ \ket{\omega_f} & \wireoverride{n} \rstick{\otimes} \\
+  \lstick{\ket{y}} &&&&& \ \ket{y \boxplus f(x)}\ &&& \rstick{\ket{y \boxplus f(x)}}
+\end{quantikz}
+\end{document}
