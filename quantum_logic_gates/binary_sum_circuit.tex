@@ -1,0 +1,13 @@
+\documentclass[tikz, border=5pt]{standalone}
+\usepackage{quantikz}
+
+\begin{document}
+
+\begin{quantikz}[wire types={q,n,q,n,q}]
+  \lstick{\ket{x_2}} & \gate{X} \gategroup[5, steps=3, style={inner xsep=0.3cm, inner ysep=0.4cm, yshift=-0.3cm}]{$\hat{U}_s$} \gategroup[5, steps=1, style={draw=none,fill=gray!20, inner ysep=0cm, yshift=-0.1cm},background, label style={label position=below, anchor=north, yshift=-0.2cm}]{$\hat{A}$} & \ \ket{x_1 \overset{2}{\oplus} x_2}\ & \gate{X} \gategroup[5, steps=1, style={draw=none,fill=gray!20, inner ysep=0cm, yshift=-0.1cm},background, label style={label position=below, anchor=north, yshift=-0.2cm}]{$\hat{B}$} & \rstick{\ket{x_0 \overset{2}{\oplus} x_1 \overset{2}{\oplus} x_2}} \\[-0.2cm]
+  \lstick{\otimes} &&&& \rstick{\otimes} \\
+  \lstick{\ket{x_1}} & \ctrl{-2} & \ \ket{x_1}\ & & \rstick{\ket{x_1}} \\
+  \lstick{\otimes} &&&& \rstick{\otimes} \\
+  \lstick{\ket{x_0}} &&& \ctrl{-4} & \rstick{\ket{x_0}}
+\end{quantikz}
+\end{document}
