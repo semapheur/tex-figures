@@ -1,0 +1,24 @@
+\documentclass[tikz, border=5pt]{standalone}
+\usepackage{quantikz}
+
+\begin{document}
+
+\begin{quantikz}[wire types={n,n,n,n,n,n,n,n,n,n,n,n,n,n,n}]
+  & \gate[15]{U_0} \gategroup[15, steps=18, style={inner ysep=0.6cm, yshift=0.2cm}, label style={label position=below, anchor=north, yshift=-0.2cm}]{$U'_+$} & \gategroup[15, steps=1, style={draw=none,fill=gray!20},background]{$\ket{\Psi[a,b,0]}$}\ \ket{b_n}\  \setwiretype{q} &[0.4cm] \gategroup[15, steps=4, style={draw=none,fill=gray!20},background]{$U_1$} &&&&[0.4cm] \gate[4]{U_c} \gategroup[15, steps=3, style={draw=none,fill=gray!20},background]{$U_2$} &&&[0.4cm] \gategroup[15, steps=7, style={draw=none,fill=gray!20},background]{$U_3$} &&&&&&&[0.4cm] \gategroup[15, steps=1, style={draw=none,fill=gray!20},background]{$\ket{\Psi[a + b, a, 0]}$} \ \ket{b_n \overset{2}{\oplus} c_n^+} & \gate[15]{U_0^\dagger} & \setwiretype{n} \\[-0.4cm]
+  && \ \ket{b_{n-1}}\ \setwiretype{q} &&&&&& \gate{X} & \gate[4]{U_s} &&&&&&&& \ \ket{s_{n-1}}\ && \setwiretype{n} \\[-0.2cm]
+  && \ \ket{a_{n-1}}\ \setwiretype{q} &&&&&& \ctrl{-1} &&&&&&&&& \ \ket{a_{n-1}}\ && \setwiretype{n} \\[-0.2cm]
+  && \ \ket{0}\ \setwiretype{q} &&&& \gate[4]{U_c} &&&& \gate[3]{U_c^\dagger} &&&&&&& \ \ket{0}\ && \setwiretype{n} \\[-0.2cm]
+  && \ \ket{b_{n-2}}\ \setwiretype{q} &&&&&&&&& \gate[3]{U_s} &&&&&& \ \ket{s_{n-2}}\ && \setwiretype{n} \\[-0.2cm]
+  \ket{b}^{n+1}\ & \wireoverride{b} & \ \ket{a_{n-2}}\ \setwiretype{q} &&&&&&&&&&&&&&& \ \ket{a_{n-2}}\ && \setwiretype{b} \ \ket{b + a}^{n+1} \ \\[-0.2cm]
+  \ \otimes\ &&&&&& \setwiretype{q} &&&&&&& \setwiretype{n} &&&&&& \ \otimes\ \\[-0.2cm]
+  \ \ket{a}^n\ & \wireoverride{b} & \vdots &&& \ddots &&&&&&& \ddots &&&&& \vdots && \setwiretype{b} \ \ket{a}^n\ \\[-0.2cm]
+  \ \otimes\ & \wireoverride{n} & \ \ket{0}\ \setwiretype{q} && \gate[4]{U_c} && \setwiretype{n} &&&&&&& \gate[4]{U_c^\dagger} \setwiretype{q} &&&& \ \ket{0}\ && \setwiretype{n} \ \otimes\ \\[-0.2cm]
+  \ \ket{0}^n\ & \wireoverride{b} & \ \ket{b_1}\ \setwiretype{q} &&&&&&&&&&&& \gate[3]{U_s} &&& \ \ket{s_1}\ && \setwiretype{b} \ \ket{0}^n \\[-0.2cm]
+  && \ \ket{a_1}\ \setwiretype{q} &&&&&&&&&&&&&&& \ \ket{a_1}\ && \setwiretype{n} \\[-0.2cm]
+  && \ \ket{0}\ \setwiretype{q} & \gate[4]{U_c} &&&&&&&&&&&& \gate[4]{U_c^\dagger} && \ \ket{0}\ && \setwiretype{n} \\[-0.2cm]
+  && \ \ket{b_0}\ \setwiretype{q} &&&&&&&&&&&&&& \gate[3]{U_s} & \ \ket{s_0}\ && \setwiretype{n} \\[-0.2cm]
+  && \ \ket{a_0}\ \setwiretype{q} &&&&&&&&&&&&&&& \ \ket{a_0}\ && \setwiretype{n} \\[-0.2cm]
+  && \ \ket{0}\ \setwiretype{q} &&&&&&&&&&&&&&& \ \ket{0}\ && \setwiretype{n}
+\end{quantikz}
+
+\end{document}
