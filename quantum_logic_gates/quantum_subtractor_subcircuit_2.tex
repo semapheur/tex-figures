@@ -1,0 +1,12 @@
+\documentclass[tikz, border=5pt]{standalone}
+\usepackage{quantikz}
+
+\begin{document}
+\begin{quantikz}[wire types={q,q,q,q,n}]
+  \lstick{\ket{b_n}} &&&&&&& \gate[4]{U_c} &[0.5cm] \gategroup[1, steps=3, style={draw=none, fill=white, inner xsep=0.6cm}, label style={yshift=-0.8cm}]{$\ket{(c_{n-1}^- \overset{2}{\oplus} a_{n-1})(b_{n-1} \overset{2}{\oplus} c_{n-1}^-) \overset{2}{\oplus} a_{n-1} \overset{2}{\oplus} b_n} = \ket{c_n^- \overset{2}{\oplus} b_n}$} &&&[0.5cm] \\[-0.2cm]
+  \lstick{\ket{b_{n-1}}} &&& \gate[3]{U_s} & \ \ket{d_{n-1}}\ & \gate{X} & \ \ket{b_{n-1} \overset{2}{\oplus} c_{n-1}^-}\ && \ \ket{b_{n-1} \overset{2}{\oplus} a_{n-1} \overset{2}{\oplus} c_{n-1}^-} = \ket{d_{n-1}}\ &&& \\[-0.2cm]
+  \lstick{\ket{a_{n-1}}} &&&& \ \ket{a_{n-1}}\ & \ctrl{-1} & \ \ket{a_{n-1}}\ && \ \ket{a_{n-1}}\ &&& \\[-0.2cm]
+  \lstick{\ket{0}} & \gate[2]{U_c} & \ \ket{c_{n-1}^-}\ && \ \ket{c_{n-1}^-}\ &&&& \ \ket{c_{n-1}^-}\ & \gate[2]{U_c^\dagger} & \ \ket{0}\ & \\[-0.2cm]
+  \ddots &&&&&&&&&& \ddots &
+\end{quantikz}
+\end{document}

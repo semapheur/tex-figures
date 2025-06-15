@@ -1,0 +1,15 @@
+\documentclass[tikz, border=5pt]{standalone}
+\usepackage{quantikz}
+
+\begin{document}
+\begin{quantikz}[wire types={n,q,q,q,q,q,q,q}]
+  \gate[2]{U_c} & \ddots &&&&& \\[-0.2cm]
+  & \ \ket{c_2^-}\ & \gate[4]{U_c} & \ \ket{(c_1^- \overset{2}{\oplus} a_1)(c_1^- \overset{2}{\oplus} b_1)\overset{2}{\oplus} a_1 \overset{2}{\oplus} c_2^-} = \ket{0}\ &&& \\[-0.2cm]
+  & \ \ket{c_1^- \overset{2}{\oplus} b_1}\ && \ \ket{a_1 \overset{2}{\oplus} b_1 \overset{2}{\oplus} c_1^-} = \ket{d_1}\ &&& \\[-0.2cm]
+  & \ \ket{a_1}\ && \ \ket{a_1}\ &&& \\[-0.2cm]
+  & \ \ket{c_1^-}\ && \ \ket{c_1^-}\ & \gate[4]{U_c^\dagger} & \ \ket{0}\ & \\[-0.2cm]
+  & \ \ket{b_0}\ &&&& \ \ket{a_0 \overset{2}{\oplus} b_0} = \ket{d_0}\ & \\[-0.2cm]
+  & \ \ket{a_0}\ &&&& \ \ket{a_0}\ & \\[-0.2cm]
+  & \ \ket{0}\ &&&& \ \ket{0}\ & \\[-0.2cm]
+\end{quantikz}
+\end{document}

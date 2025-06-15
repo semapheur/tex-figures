@@ -2,7 +2,6 @@
 \usepackage{quantikz}
 
 \begin{document}
-
 \begin{quantikz}[wire types={n,q,q,q,q,q,q,q}]
   \lstick{\vdots} &&&&& \gate[2]{U_c} & \ddots \\[-0.2cm]
   \lstick{\ket{0}} &&& \gate[4]{U_c} & \ \ket{a_1 b_1 \overset{2}{\oplus} c_1^+ a_1 \overset{2}{\oplus} c_1^+ b_1} = \ket{c_2^+} \ && \ \cdots\ \\[-0.2cm]
@@ -13,5 +12,4 @@
   \lstick{\ket{a_0}} && \ \ket{a_0}\ &&&& \ \cdots\ \\[-0.2cm]
   \lstick{\ket{0}} && \ \ket{0} = \ket{c_0^+}\ &&&& \ \cdots\
 \end{quantikz}
-
 \end{document}
