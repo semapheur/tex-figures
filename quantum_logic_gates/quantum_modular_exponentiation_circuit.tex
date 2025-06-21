@@ -1,0 +1,26 @@
+\documentclass[tikz, border=5pt]{standalone}
+\usepackage{quantikz}
+
+\begin{document}
+\begin{quantikz}[wire types={q,n,q,n,n,n,q,n,q,b,b,n,n,n,b,n,b,n,b}]
+  \lstick[9]{$\ket{x}$} & \ \ket{x_{n-1}}\ \gategroup[19, steps=22, style={inner ysep=0.4cm, yshift=-0.2cm}]{$A_{f_b, N}$} &&&&&&&&&& \ctrl{9} & \octrl{9} &&&&&&&&&& \ \ket{x_{n-1}}\ & \rstick[9]{$\ket{x}$} \\[-0.2cm]
+  & \otimes &&&&&&&&&&&&&&&&&&&&& \otimes & \\[-0.2cm]
+  & \ \ket{x_{n-2}}\ &&&&&&& \ctrl{8} & \octrl{8} &&&&& \octrl{8} & \ctrl{8} &&&&&&& \ \ket{x_{n-2}}\ & \\[-0.2cm]
+  & \otimes &&&&&&&&&&&&&&&&&&&&& \otimes & \\[-0.6cm]
+  & \vdots &&&&&&&&&&&&&&&&&&&&& \vdots & \\[-0.4cm]
+  & \otimes &&&&&&&&&&&&&&&&&&&&& \otimes & \\[-0.2cm]
+  & \ \ket{x_1}\ &&&& \ctrl{8} & \octrl{8} &&&&&&&&&&& \octrl{8} & \ctrl{8} &&&& \ \ket{x_1}\ & \\[-0.2cm]
+  \lstick[label style={xshift=-0.2cm}]{\otimes} & \otimes &&&&&&&&&&&&&&&&&&&&& \otimes & \rstick[label style={xshift=0.2cm}]{\otimes} \\[-0.2cm]
+  & \ \ket{x_0}\ & \ctrl{8} & \octrl{8} &&&&&&&&&&&&&&&&& \octrl{8} & \ctrl{8} & \ \ket{x_0}\ & \\
+  \lstick{\ket{0}} &&&&&&&&&&& \gate[2]{U_{\times\beta_{n-1 \% N}}} & \gate[2]{+\% N} & \ \ket{b^{\sum_{j=0}^{n-1} x_j 2^j} \bmod N}\ &&&&&&&&&& \rstick{\ket{b^x \bmod N}} \\[-0.2cm]
+  & \ \ket{0}\ \gategroup[9, steps=1, style={draw=none, fill=gray!20, inner sep=-0.2cm}, label style={label position=below, anchor=north, yshift=-0.2cm}, background]{$\ket{\omega_i}$} \wireoverride{n} &&&&&&& \gate[2]{U_{\times\beta_{n-2} \% N}} & \gate[2]{U_{+\% N}} & \ \ket{b^{\sum_{j=0}^{n-1} x_j 2^j} \bmod N}\ &&& \ \ket{b^{\sum_{j=0}^{n-2} x_j 2^j} \bmod N}\ & \gate[2]{U_{-\% N}} & \gate[2]{U_{\times\beta_{n-2} \% N}^\dagger} & \ \ket{0}\ &&&&&& \ \ket{0}\ \gategroup[9, steps=1, style={draw=none, fill=gray!20, inner sep=-0.2cm}, label style={label position=below, anchor=north, yshift=-0.2cm}, background]{$\ket{\omega_f}$} & \wireoverride{n} \\[-0.4cm]
+  & \otimes &&&&&&&&&&&&&&&&&&&&& \otimes & \\[-0.8cm]
+  & \vdots &&&&&& \ddots &&&&&&&&& \ddots &&&&&& \vdots & \\[-0.3cm]
+  & \otimes &&&&&&&&&&&&&&&&&&&&& \otimes & \\[-0.2cm]
+  & \ \ket{0}\ \wireoverride{n} &&&& \gate[3]{U_{\times\beta_1 \% N}} & \gate[3]{U_{+\% N}} & \ \ket{b^{\sum_{j=0}^1 x_j 2^j} \bmod N}\ && \setwiretype{n} &&&&&&& \ \ket{b^{\sum_{j=0}^1 x_j 2^j} \bmod N}\ \setwiretype{b} & \gate[3]{\hat{U}_{-\% N}} & \gate[3]{U_{\times\beta_1 \% N}^\dagger} & \ \ket{0}\ &&& \ \ket{0}\ & \wireoverride{n} \\[-0.2cm]
+  & \otimes &&&&&&&&&&&&&&&&&&&&& \otimes & \\[-0.2cm]
+  & \ \ket{0}\ \wireoverride{n} & \gate[3]{U_{\times\beta_0 \% N}} & \gate[3]{U_{+\% N}} & \ \ket{b^{x_0 2^0} \bmod N}\ &&& \ \ket{b^{x_0 2^0} \bmod N}\ && \setwiretype{n} && \cdots &&&&& \ \ket{b^{x_0 2^0} \bmod N}\ \setwiretype{b} &&& \ \ket{b^{x_0 2^0} \bmod N}\ & \gate[3]{U_{-\% N}} & \gate[3]{U_{\times\beta_0 \% N}^\dagger} & \ \ket{0}\ & \wireoverride{n} \\[-0.2cm]
+  & \otimes &&&&&&&&&&&&&&&&&&&&& \otimes & \\[-0.2cm]
+  & \ \ket{1}\ \wireoverride{n} &&& \ \ket{1}\ &&&&& \setwiretype{n} &&&&&&& \setwiretype{b} &&& \ \ket{1}\ &&& \ \ket{1}\ & \wireoverride{n}
+\end{quantikz}
+\end{document}

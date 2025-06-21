@@ -1,0 +1,23 @@
+\documentclass[tikz, border=5pt]{standalone}
+\usepackage{quantikz}
+
+\begin{document}
+\begin{quantikz}[wire types={b,b,b,n,n,n,b,n,b,q,n,n,n,q,n,q}]
+  \lstick{\ket{b}} & \gategroup[16, steps=16, label style={label position=below, anchor=north, yshift=-0.2cm}]{$U_{\times c\% N}$} &&& \gate[2]{U_{+\% N}} & \ \ket{(b + c2^0 a_0) \bmod N}\ &&& \gate[2]{U_{+\% N}} & \ \ket{(b + c(2^0 a_0 + 2^1 a_1)) \bmod N}\ & \midstick[16, brackets=none]{$\ddots$} && \ \ket{(b + c \sum_{i=0}^{n-2} a_j 2^j) \bmod N}\ & \gate[2]{U_{+\% N}} &&&& \rstick{\ket{(b + ca) \bmod N}} \\
+  \lstick[8, brackets=none]{$\otimes$} & \ \ket{0}\ \gategroup[8, steps=1, style={draw=none, fill=gray!20, inner sep=0cm}, background]{$\omega_i$} \wireoverride{n} & \swap{7} & \ \ket{c2^0 \bmod N} && \ \ket{c2^0 \bmod N}\ & \swap{5} & \ \ket{c2^1 \mod N} && \ \ket{c2^1 \bmod N} && \swap{1} & \ \ket{c2^{n-1} \bmod N}\ && \ \ket{c2^{n-1} \bmod N}\ & \swap{7} & \ \ket{0}\ \gategroup[8, steps=1, style={draw=none, fill=gray!20, inner sep=0cm}, background]{$\omega_f$} & \rstick[8, brackets=none]{$\otimes$} \wireoverride{n} \\
+  & \ \ket{c2^{n-1} \bmod N}\ \wireoverride{n} &&&&&&&&&& \targX{} &&&&& \ \ket{c2^{n-2} \bmod N}\ & \wireoverride{n} \\[-0.4cm]
+  & \otimes &&&&&&&&&&&&&&& \otimes & \\[-0.6cm]
+  & \vdots &&&&&&&&&&&&&&& \vdots & \\[-0.4cm]
+  & \otimes &&&&&&&&&&&&&&& \otimes & \\[-0.4cm]
+  & \ \ket{c2^1 \bmod N}\ \wireoverride{n} &&&&& \targX{} & \ \ket{c2^0 \bmod N}\ &&&&&&&&& \ \ket{c2^0 \bmod N}\ & \wireoverride{n} \\[-0.4cm]
+  & \otimes &&&&&&&&&&&&&&& \otimes & \\[-0.4cm]
+  & \ \ket{c2^0 \bmod N}\ \wireoverride{n} & \targX{} & \ \ket{0}\ &&&&&&&&&&&& \targX{} & \ \ket{c2^{n-1} \bmod N}\ & \wireoverride{n} \\
+  \lstick[7]{$\ket{a}$} & \ \ket{a_{n-1}}\ &&&&&&&&&&&& \ctrl{-8} &&& \ \ket{a_{n-1}}\ & \rstick[7]{$\ket{a}$} \\[-0.4cm]
+  & \otimes &&&&&&&&&&&&&&& \otimes & \\[-0.6cm]
+  & \vdots &&&&&&&&&&&&&&& \vdots & \\[-0.4cm]
+  & \otimes &&&&&&&&&&&&&&& \otimes & \\[-0.4cm]
+  & \ \ket{a_1}\ &&&&&&& \ctrl{-12} &&&&&&&& \ \ket{a_1}\ & \\[-0.4cm]
+  & \otimes &&&&&&&&&&&&&&& \otimes & \\[-0.4cm]
+  & \ \ket{a_0}\ &&& \ctrl{-14} &&&&&&&&&&&& \ \ket{a_0}\ &
+\end{quantikz}
+\end{document}
