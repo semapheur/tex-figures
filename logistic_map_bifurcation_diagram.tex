@@ -1,0 +1,46 @@
+\documentclass[tikz]{standalone}
+\usepackage{tikz}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.18}
+\usepackage{luacode}
+
+\begin{luacode*}
+  function logistic()
+
+    local function map(r, x)
+      return r*x*(1-x)
+    end
+
+    for r=2.5, 4.0, 0.005 do
+      local x = 0.1
+      for i=1, 100 do
+        x = map(r, x)
+      end
+
+      for i=1, 150 do
+        x = map(r, x)
+
+        tex.sprint(string.format("(%f,%f) ", r, x))
+      end
+
+    end
+
+  end
+\end{luacode*}
+
+\begin{document}
+
+%\foreach \t in {0, 0.01, ..., 1}{
+\begin{tikzpicture}[scale=2] % CENT
+  \begin{axis}[
+      %xmin=2.5, xmax=4,
+      %ymin=0, ymax=1,
+      xlabel={\scriptsize $r$}, ylabel={$x$}, tick label style={font=\tiny}, ]
+    \edef\logisticplot{\noexpand\addplot [color=gray!10, mesh, only marks, mark
+        size=0.03pt] coordinates{\directlua{logistic()}};} \logisticplot
+  \end{axis}
+
+\end{tikzpicture}
+%}
+
+\end{document}

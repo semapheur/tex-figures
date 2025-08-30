@@ -1,0 +1,99 @@
+\documentclass[tikz]{standalone} % dvisvgm --pdf
+\usepackage{tikz-3dplot}
+\usetikzlibrary{3d}
+
+% Define new arc command
+% Syntax: [draw options] (center) (initial angle:final angle:radius)
+\def\centerarc[#1](#2)(#3:#4:#5){%
+    \draw [#1] ($(#2)+({#5*cos(#3)}, {#5*sin(#3)})$) arc (#3:#4:#5)%
+}
+
+\tdplotsetmaincoords{70}{100}
+
+\pgfmathsetmacro{\rAlpha}{30}
+\pgfmathsetmacro{\rBeta}{30}
+\pgfmathsetmacro{\rGamma}{30}
+
+\begin{document}
+
+\begin{tikzpicture}[scale=3, tdplot_main_coords]
+
+  % Origo
+  \coordinate (o) at (0, 0, 0);
+
+  % rotated hidden semidisk
+  \begin{scope}[rotate around z=\rAlpha]
+    \begin{scope}[rotate around x=\rGamma, canvas is xy plane at z=0]
+      \filldraw[color=yellow!20, draw=red] (-1, 0) arc(180:360:1);
+    \end{scope}
+  \end{scope}
+
+  % initial hidden semidisk
+  \begin{scope}[rotate around z=\rAlpha, canvas is xy plane at z=0]
+    \filldraw[color=gray!20, draw=blue] (1, 0) arc(0:180:1);
+  \end{scope}
+
+  % y axis hidden
+  \draw[-stealth, color=blue] (o) -- (0, 1, 0) node[anchor=west] {$y$};
+
+  \begin{scope}[rotate around z=\rAlpha]
+    \begin{scope}[rotate around x=\rBeta]
+      \begin{scope}[canvas is xy plane at z=0]
+        % rotated xy disk
+        \filldraw[color=yellow!20, draw=red] (1, 0) arc(0:180:1);
+        % gamma angle
+        \draw[-stealth] (0.5, 0) arc (0:\rGamma:.5) node[anchor=north, yshift=-1mm] {$\gamma$};
+      \end{scope}
+
+      % rotated z axis
+      \draw[color=red, -stealth] (o) -- (0, 0, 1) node[anchor=south] {$z'$};
+
+      % gamma rotation
+      \centerarc[canvas is xy plane at z=0.8, arrows=-stealth](0,0)(190 : 520 : 0.15)%
+      node[anchor=north west, xshift=+3mm] {$\gamma$};
+
+      \begin{scope}[rotate around z=\rGamma]
+        % rotated xy axis
+        \begin{scope}[canvas is xy plane at z=0]
+          \draw[color=red, -stealth] (0, 0) -- (1, 0) node[anchor=west, yshift=+1mm] {$x'$};
+          \draw[color=red, -stealth] (0, 0) -- (0, 1) node[anchor=south] {$y'$};
+        \end{scope}
+
+        % beta angle
+        \begin{scope}[canvas is zy plane at x=0]
+          \draw[stealth-] (0.3, 0) node[anchor=south, xshift=+1mm, yshift=+1mm] {$\beta$} arc(0:\rBeta+10:.3);
+        \end{scope}
+      \end{scope}
+
+    \end{scope}
+  \end{scope}
+
+  \begin{scope}[rotate around z=\rAlpha]
+    \begin{scope}[canvas is xy plane at z=0]
+      % initial semidisk
+      \filldraw[color=gray!20, draw=blue] (-1, 0) arc(180:360:1);
+      % line of nodes
+      \draw[color=green, -latex] (-1, 0) -- (2, 0) node[anchor=north] {$N$};
+    \end{scope}
+
+    % beta rotation
+    \centerarc[canvas is zy plane at x=1.5, arrows=stealth-](0,0)(150:490:0.15)%
+    node[anchor=north, xshift=-6mm, yshift=-1mm] {$\beta$};
+
+  \end{scope}
+
+  % alpha angle
+  \begin{scope}[canvas is xy plane at z=0]
+    \draw[-stealth] (0.3, 0) arc(0:\rAlpha:.3) node[anchor=north east, xshift=-1mm] {$\alpha$};
+  \end{scope}
+
+  % initial axes
+  \draw[-stealth, color=blue] (o) -- (1, 0, 0) node[anchor=north east] {$x$};
+  \draw[-stealth, color=blue] (o) -- (0, 0, 1) node[anchor=north east] {$z$};
+
+  % alpha rotation
+  \centerarc[canvas is xy plane at z=0.8, arrows=-stealth](0,0)(210 : 540 : 0.15)%
+  node[anchor=north west, yshift=-2mm] {$\alpha$};
+
+\end{tikzpicture}
+\end{document}
