@@ -1,0 +1,82 @@
+\documentclass[tikz]{standalone}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.18}
+\usepgfplotslibrary{polar}
+
+% User parameters (you can adjust these freely)
+\def\N{10}           % number of elements
+\def\thetaZero{20}   % main lobe direction in degrees
+\def\spacing{0.5}    % element spacing in wavelengths (d/λ)
+\def\lambda{1.0}     % wavelength
+
+% Lua functions
+\directlua{
+  local pi = math.pi
+
+  -- Array factor function (normalized power pattern)
+  function array_factor(theta_deg, N, theta0_deg, d_lambda, lambda)
+    local k = 2*pi/lambda
+    local theta = (theta_deg - theta0_deg) * pi/180
+    local psi = k * d_lambda * lambda * math.sin(theta)
+    if math.abs(math.sin(psi/2)) < 1e-12 then
+      return 1.0 -- limit value at center
+    else
+      local num = math.sin(N*psi/2)
+      local den = N*math.sin(psi/2)
+      local af = num/den
+      return af*af
+    end
+  end
+
+  -- Compute approximate HPBW and FNBW (radians)
+  function beamwidths(N, d_lambda)
+    local fnbw = 4*pi/(N*d_lambda)   -- rad
+    local hpbw = 0.886*2*pi/(N*d_lambda)
+    return hpbw, fnbw
+  end
+}
+
+\begin{document}
+\begin{tikzpicture}
+  \begin{polaraxis}[
+      domain=-90:90,
+      samples=721,
+      ymin=-40, ymax=0,
+      grid=both,
+      title={Configurable Radiation Pattern},
+    ]
+
+    % Plot using Lua-calculated pattern
+    \addplot+[smooth, thick, blue]
+    ({x},
+    {10*log10(
+        \directlua{
+          local val = array_factor(tonumber(\luatexnum{x}),
+          tonumber(\N),
+          tonumber(\thetaZero),
+          tonumber(\spacing),
+          tonumber(\lambda))
+          tex.sprint(val)
+        }
+        )});
+
+    % Compute HPBW and FNBW with Lua
+    \directlua{
+    local hpbw, fnbw = beamwidths(tonumber(\N), tonumber(\spacing))
+    tex.sprint("\\xdef\\HPBW{" .. string.format("%.2f", hpbw*180/pi) .. "}")
+    tex.sprint("\\xdef\\FNBW{" .. string.format("%.2f", fnbw*180/pi) .. "}")
+    }
+
+    % Annotate HPBW
+    \draw[red,<->] (axis cs:{\thetaZero-\HPBW/2},-15) --
+    (axis cs:{\thetaZero+\HPBW/2},-15)
+    node[midway,below]{HPBW $\approx \HPBW^\circ$};
+
+    % Annotate FNBW
+    \draw[orange,<->] (axis cs:{\thetaZero-\FNBW/2},-25) --
+    (axis cs:{\thetaZero+\FNBW/2},-25)
+    node[midway,below]{FNBW $\approx \FNBW^\circ$};
+
+  \end{polaraxis}
+\end{tikzpicture}
+\end{document}

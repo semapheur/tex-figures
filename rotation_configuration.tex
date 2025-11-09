@@ -1,0 +1,52 @@
+\documentclass[border=5pt]{standalone}
+\usepackage{tikz}
+\usepackage{pgfplots}
+\usetikzlibrary{3d, arrows.meta}
+
+\newcommand{\sphericalcoord}[3]{({#1*sin(#2)*sin(#3)}, {#1*cos(#2)}, {#1*sin(#2)*cos(#3)})}
+
+\def\r{5}
+\def\phi{30}
+\def\theta{30}
+
+\pgfmathsetmacro{\ry}{\r * sin(\theta)}
+\pgfmathsetmacro{\rya}{\ry * 0.5}
+\pgfmathsetmacro{\perp}{\theta - 90}
+
+\pgfmathsetmacro{\px}{\r * sin(\theta) * sin(\phi)}
+\pgfmathsetmacro{\py}{\r * cos(\theta)}
+\pgfmathsetmacro{\pz}{\r * sin(\theta) * cos(\phi)}
+
+
+\begin{document}
+\begin{tikzpicture}
+
+  \draw[-Stealth] (0,0,0) -- (0, \r + 1, 0) node[above]{$\hat{\mathbf{n}}$};
+
+  \begin{scope}[
+      plane origin={(0,\py, 0)},
+      plane x={(\px, \py, \pz)},
+      plane y={(-\pz, \py, \px)},
+      canvas is plane
+    ]
+    \draw[-Stealth, red] (0,0) -- (0,1) node[left]{$\mathbf{x}\times\hat{\mathbf{n}}$};
+    \draw[red] (0.1,0) -- (0.1, 0.1) -- (0, 0.1);
+  \end{scope}
+
+  \begin{scope}[canvas is zx plane at y=\r * cos(\theta)]
+    \draw[dashed] (0,0) circle [radius=\r * sin(\theta)];
+    \draw[-Stealth] (0,0) -- (\phi:\ry) node[midway, above right]{$\mathbf{x} - (\mathbf{x}\cdot\hat{\mathbf{n}})\hat{\mathbf{n}}$};
+    \draw[-Stealth] (0,0) -- (-\phi:\ry) node[above, yshift=1pt]{$\mathbf{h}$};
+    %\draw[-Stealth, red] (0,0) -- (\perp:\ry) node[left]{$\mathbf{x}\times\hat{\mathbf{n}}$};
+    \draw[-Stealth] (\phi:\rya) arc (\phi:-\phi:\rya) node[midway, below]{$\varphi$};
+  \end{scope}
+
+  \draw[-Stealth, thick, blue] (0,0,0) -- \sphericalcoord{\r}{\theta}{\phi} node[below right]{$\mathbf{x}$};
+  \draw[-Stealth, thick, blue] (0,0,0) -- \sphericalcoord{\r}{\theta}{-\phi} node[below left]{$\mathbf{x}'$};
+
+  %\pgfmathsetmacro{\vpx}{\vx*cos(\phi) - (\ny*\vz - \nz*\vy)*sin(\phi) + \nx*(\nx*\vx+\ny*\vy+\nz*\vz)*(1-cos(\phi))}
+  %\pgfmathsetmacro{\vpy}{\vy*cos(\phi) - (\nz*\vx - \nx*\vz)*sin(\phi) + \ny*(\nx*\vx+\ny*\vy+\nz*\vz)*(1-cos(\phi))}
+  %\pgfmathsetmacro{\vpz}{\vz*cos(\phi) - (\nx*\vy - \ny*\vx)*sin(\phi) + \nz*(\nx*\vx+\ny*\vy+\nz*\vz)*(1-cos(\phi))}
+
+\end{tikzpicture}
+\end{document}

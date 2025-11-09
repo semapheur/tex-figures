@@ -1,0 +1,51 @@
+\documentclass[border=5pt]{standalone}
+\usepackage{tikz}
+\usepackage{luacode}
+
+\begin{luacode*}
+function endfire_pattern(theta_deg)
+  local theta_rad = math.rad(theta_deg)
+  local theta0_rad = 0  -- main lobe direction (0° end-fire)
+  local delta = theta_rad - theta0_rad
+
+  -- main lobe: Gaussian centered at 0°
+  local main = math.exp(- (delta/0.2)^2)
+
+  -- 6 minor lobes trailing behind (shifted + multiples of 20°)
+  local lobe1 = 0.2*math.exp(-((delta - 0.35)^2)/(2*0.05^2))
+  local lobe2 = 0.2*math.exp(-((delta - 0.7)^2)/(2*0.05^2))
+  local lobe3 = 0.15*math.exp(-((delta - 1.05)^2)/(2*0.05^2))
+  local lobe4 = 0.15*math.exp(-((delta - 1.4)^2)/(2*0.05^2))
+  local lobe5 = 0.1*math.exp(-((delta - 1.75)^2)/(2*0.05^2))
+  local lobe6 = 0.1*math.exp(-((delta - 2.1)^2)/(2*0.05^2))
+
+  local val = main + lobe1 + lobe2 + lobe3 + lobe4 + lobe5 + lobe6
+  return val
+end
+
+function radiation_pattern()
+  local values = {}
+  for i=0,360 do
+    local val = endfire_pattern(i)
+    table.insert(values, string.format("(%d:%f)", i, val))
+  end
+  return table.concat(values, " ")
+end
+\end{luacode*}
+
+\begin{document}
+\begin{tikzpicture}[scale=4]
+  \edef\plotcoords{\directlua{
+      tex.print(radiation_pattern())
+    }}
+
+  % polar axes
+  \draw[->,gray] (0,0) -- (4,0) node[right]{0°};
+  \draw[->,gray] (0,0) -- (0,4) node[above]{90°};
+  \draw[->,gray] (0,0) -- (-4,0) node[left]{180°};
+  \draw[->,gray] (0,0) -- (0,-4) node[below]{270°};
+
+  % plot the azimuthal pattern
+  \draw plot[smooth] coordinates {\plotcoords};
+\end{tikzpicture}
+\end{document}
