@@ -1,0 +1,13 @@
+\documentclass[tikz]{standalone}
+\usepackage{tikz}
+\usetikzlibrary{cd}
+
+\begin{document}
+
+\begin{tikzcd}[row sep=large, column sep=large, every label/.append style = {font = \scriptsize}]
+	L \arrow[r, "\iota"] \arrow[dr, "\phi" swap] &
+	U(L)_\text{SLie} \arrow[d, "\tilde{\phi}"] \\
+	& A_\text{SLie} &
+\end{tikzcd}
+
+\end{document}

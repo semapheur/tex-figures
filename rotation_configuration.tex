@@ -1,4 +1,4 @@
-\documentclass[border=5pt]{standalone}
+\documentclass[tikz, border=5pt]{standalone}
 \usepackage{tikz}
 \usepackage{pgfplots}
 \usetikzlibrary{3d, arrows.meta}
@@ -6,27 +6,26 @@
 \newcommand{\sphericalcoord}[3]{({#1*sin(#2)*sin(#3)}, {#1*cos(#2)}, {#1*sin(#2)*cos(#3)})}
 
 \def\r{5}
-\def\phi{30}
+\def\phi{45}
 \def\theta{30}
-
-\pgfmathsetmacro{\ry}{\r * sin(\theta)}
-\pgfmathsetmacro{\rya}{\ry * 0.5}
-\pgfmathsetmacro{\perp}{\theta - 90}
+\def\alpha{60}
 
 \pgfmathsetmacro{\px}{\r * sin(\theta) * sin(\phi)}
 \pgfmathsetmacro{\py}{\r * cos(\theta)}
 \pgfmathsetmacro{\pz}{\r * sin(\theta) * cos(\phi)}
 
-
 \begin{document}
-\begin{tikzpicture}
+\begin{tikzpicture}[every node/.style={font=\scriptsize}]
 
-  \draw[-Stealth] (0,0,0) -- (0, \r + 1, 0) node[above]{$\hat{\mathbf{n}}$};
+  \draw[-Stealth] (0, {\r * cos(\theta)},0) -- (0, \r + 1, 0) node[above]{$\hat{\mathbf{n}}$};
+  \draw[-Stealth, green] (0,0,0) -- (0, {\r * cos(\theta)}, 0) node[midway, above, sloped]{$(\mathbf{x} \cdot \hat{\mathbf{n}}) \hat{\mathbf{n}}$};
+
+  \node at (0, -0.5) {$\mathbf{h} = [\mathbf{x} - (\mathbf{x}\cdot\hat{\mathbf{n}})\hat{\mathbf{n}}] \cos(\varphi) + \mathbf{x} \times\hat{\mathbf{n}} \sin(\varphi)$};
 
   \begin{scope}[
-      plane origin={(0,\py, 0)},
-      plane x={(\px, \py, \pz)},
-      plane y={(-\pz, \py, \px)},
+      plane origin={(0,\py,0)},
+      plane x={(\px,\py,\pz)},
+      plane y={(-\pz,\py,\px)},
       canvas is plane
     ]
     \draw[-Stealth, red] (0,0) -- (0,1) node[left]{$\mathbf{x}\times\hat{\mathbf{n}}$};
@@ -35,18 +34,13 @@
 
   \begin{scope}[canvas is zx plane at y=\r * cos(\theta)]
     \draw[dashed] (0,0) circle [radius=\r * sin(\theta)];
-    \draw[-Stealth] (0,0) -- (\phi:\ry) node[midway, above right]{$\mathbf{x} - (\mathbf{x}\cdot\hat{\mathbf{n}})\hat{\mathbf{n}}$};
-    \draw[-Stealth] (0,0) -- (-\phi:\ry) node[above, yshift=1pt]{$\mathbf{h}$};
-    %\draw[-Stealth, red] (0,0) -- (\perp:\ry) node[left]{$\mathbf{x}\times\hat{\mathbf{n}}$};
-    \draw[-Stealth] (\phi:\rya) arc (\phi:-\phi:\rya) node[midway, below]{$\varphi$};
+    \draw[-Stealth] (0,0) -- (\phi:{\r * sin(\theta)}) node[above right, xshift=-5pt, rotate=20]{$\mathbf{x} - (\mathbf{x}\cdot\hat{\mathbf{n}})\hat{\mathbf{n}}$};
+    \draw[-Stealth] (0,0) -- ({\phi - \alpha}:{\r * sin(\theta)}) node[above, yshift=2pt]{$\mathbf{h}$};
+    \draw[-Stealth] (\phi:{0.5 * \r * sin(\theta)}) arc (\phi:{\phi - \alpha}:{0.5 * \r * sin(\theta)}) node[midway, below]{$\varphi$};
   \end{scope}
 
   \draw[-Stealth, thick, blue] (0,0,0) -- \sphericalcoord{\r}{\theta}{\phi} node[below right]{$\mathbf{x}$};
-  \draw[-Stealth, thick, blue] (0,0,0) -- \sphericalcoord{\r}{\theta}{-\phi} node[below left]{$\mathbf{x}'$};
-
-  %\pgfmathsetmacro{\vpx}{\vx*cos(\phi) - (\ny*\vz - \nz*\vy)*sin(\phi) + \nx*(\nx*\vx+\ny*\vy+\nz*\vz)*(1-cos(\phi))}
-  %\pgfmathsetmacro{\vpy}{\vy*cos(\phi) - (\nz*\vx - \nx*\vz)*sin(\phi) + \ny*(\nx*\vx+\ny*\vy+\nz*\vz)*(1-cos(\phi))}
-  %\pgfmathsetmacro{\vpz}{\vz*cos(\phi) - (\nx*\vy - \ny*\vx)*sin(\phi) + \nz*(\nx*\vx+\ny*\vy+\nz*\vz)*(1-cos(\phi))}
+  \draw[-Stealth, thick, blue] (0,0,0) -- \sphericalcoord{\r}{\theta}{\phi - \alpha} node[below left]{$\mathbf{x}'$};
 
 \end{tikzpicture}
 \end{document}
