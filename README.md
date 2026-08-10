@@ -26,7 +26,7 @@ dvisvgm --pdf
 
 Create gif
 ```
-dvisvgm --pdf % magick convert -dispose previous  -density 300 -delay 4 -loop 0 -alpha remove main.pdf test.gif
+dvisvgm --pdf % magick convert -dispose previous -density 300 -delay 4 -loop 0 -alpha remove main.pdf test.gif
 ```
 
 # Lua

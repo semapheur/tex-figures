@@ -9,29 +9,29 @@
   \pgfmathsetmacro{\K}{2}
 
   \begin{groupplot}[
-    group style={
-      group size=2 by 2,
-      horizontal sep=1cm,
-      vertical sep=1cm,
-    },
-    width=6cm, height=5cm,
-    axis lines=middle,
-    axis line style={-latex},
-    xmin=0, xmax=4.5,
-    ymin=-3, ymax=3,
-    xtick=\empty, ytick=\empty,
-    domain=0:4,
-    samples=100,
-    every axis plot/.style={blue, very thick, no marks},
-    xlabel={$S_T$},
-    xlabel style={at={(axis description cs:1,0.5)}, anchor=west},
-    title style={
-      at={(axis description cs:0.5,1)},
-      yshift=0.3cm,
-      anchor=south,
-    },
-    clip=false,
-  ]
+      group style={
+          group size=2 by 2,
+          horizontal sep=1cm,
+          vertical sep=1cm,
+        },
+      width=6cm, height=5cm,
+      axis lines=middle,
+      axis line style={-latex},
+      xmin=0, xmax=4.5,
+      ymin=-3, ymax=3,
+      xtick=\empty, ytick=\empty,
+      domain=0:4,
+      samples=100,
+      every axis plot/.style={blue, very thick, no marks},
+      xlabel={$S_T$},
+      xlabel style={at={(axis description cs:1,0.5)}, anchor=west},
+      title style={
+          at={(axis description cs:0.5,1)},
+          yshift=0.3cm,
+          anchor=south,
+        },
+      clip=false,
+    ]
 
     % Long Call
     \nextgroupplot[
