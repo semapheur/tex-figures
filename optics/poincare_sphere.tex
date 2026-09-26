@@ -39,6 +39,7 @@
   \tdplotsetrotatedcoords{90}{-\deltaangle}{-90};
   \draw[tdplot_rotated_coords, canvas is xy plane at z=0, orange, dashed] (0,0) circle (\rvec);
   \tdplotdrawarc[tdplot_rotated_coords]{(O)}{0.3*\rvec}{0}{\alphaangle}{anchor=south east, xshift=0.1cm}{\scriptsize $2\alpha$};
+  %\draw[canvas is yz plane at x=\rvec] (0.3*\rvec,0) arc (0:\deltaangle:0.3*\rvec) node[anchor=north west] {\scriptsize $\delta$}; 
 
   % Eigenstates
   \draw plot [mark=*, mark size=1] (0, 0, \rvec) node[anchor=south, shift=({-0.3,0})] {\scriptsize $\ket{L}$};
@@ -63,6 +64,9 @@
 
   \tdplotsetthetaplanecoords{\phivec};
   \tdplotdrawarc[tdplot_rotated_coords]{(O)}{0.3*\rvec}{\thetavec}{90}{anchor=south west, xshift=-0.1cm}{\scriptsize $2\varepsilon$};
+
+  \tdplotsetrotatedcoords{0}{90}{90}
+  \tdplotdrawarc[tdplot_rotated_coords]{(0, 0, \rvec - 0.1)}{0.3*\rvec}{0}{\deltaangle}{anchor=north west}{\scriptsize $\delta$};
 
 \end{tikzpicture}
 \end{document}
