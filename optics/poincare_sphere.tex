@@ -1,0 +1,68 @@
+\documentclass[tikz]{standalone}
+\usepackage{amsmath}
+\usepackage{braket}
+\usepackage{tikz}
+\usepackage{tikz-3dplot}
+\usetikzlibrary{3d}
+
+% Set 3D plot view angle
+\tdplotsetmaincoords{70}{130}
+
+\def\rvec{3}
+\def\thetavec{40}
+\def\phivec{60}
+
+\pgfmathsetmacro{\Py}{sin(\thetavec)*sin(\phivec)}
+\pgfmathsetmacro{\Pz}{cos(\thetavec)}
+\pgfmathsetmacro{\deltaangle}{atan2(\Pz,\Py)}
+\pgfmathsetmacro{\alphaangle}{acos(sin(\thetavec)*cos(\phivec))}
+
+\begin{document}
+
+\begin{tikzpicture}[tdplot_main_coords]
+  \coordinate (O) at (0,0,0);
+
+  % Shaded ball (not working in svg)
+  %\shade[ball color=lightgray, opacity=0.5] (0,0,0) circle (\rvec cm);
+  \fill[lightgray!40] (0,0,0) circle (\rvec cm);
+
+  % Axes
+  \draw[] (0,0,0) -- (\rvec,0,0);
+  \draw[] (0,0,0) -- (0,\rvec,0);
+  \draw[] (0,0,0) -- (0,0,\rvec);
+
+  % Great circles
+  \draw[canvas is xy plane at z=0, red, dashed] (0,0) circle (\rvec);
+  \draw[canvas is zx plane at y=0, green, dashed] (0,0) circle (\rvec);
+  
+  % s0-s1 great circle
+  \tdplotsetrotatedcoords{90}{-\deltaangle}{-90};
+  \draw[tdplot_rotated_coords, canvas is xy plane at z=0, orange, dashed] (0,0) circle (\rvec);
+  \tdplotdrawarc[tdplot_rotated_coords]{(O)}{0.3*\rvec}{0}{\alphaangle}{anchor=south east, xshift=0.1cm}{\scriptsize $2\alpha$};
+
+  % Eigenstates
+  \draw plot [mark=*, mark size=1] (0, 0, \rvec) node[anchor=south, shift=({-0.3,0})] {\scriptsize $\ket{L}$};
+  \draw plot [mark=*, mark size=1] (0, 0, -\rvec) node[anchor=north, shift=({0.3,0})] {\scriptsize $\ket{R}$};
+
+  \draw plot [mark=*, mark size=1] (0, \rvec, 0) node[anchor=west, shift=({0,0.2})] {\scriptsize $\ket{D}$};
+  \draw plot [mark=*, mark size=1] (0, -\rvec, 0) node[anchor=east, shift=({0,-0.2})] {\scriptsize $\ket{A}$};
+
+  \draw plot [mark=*, mark size=1] (\rvec, 0, 0) node[anchor=north east] {\scriptsize $\ket{H}$};
+  \draw plot [mark=*, mark size=1] (-\rvec, 0, 0) node[anchor=south west, shift=({-0.2,0.2})] {\scriptsize $\ket{V}$};
+
+  % Qubit
+  \tdplotsetcoord{P}{\rvec}{\thetavec}{\phivec};
+  \draw[thick,->,color=blue] (0,0,0) -- (P) node[above] {\scriptsize $s_0$};
+  \draw[dashed, color=blue] (O) -- (Pxy);
+  \draw[dashed, color=blue] (P) -- (Pxy);
+  \draw[dashed, color=blue] (Pxy) -- (Px) node[left, yshift=0.1cm] {\scriptsize $s_1$};
+  \draw[dashed, color=blue] (Pxy) -- (Py) node[above, xshift=0.1cm, yshift=-0.1cm] {\scriptsize $s_2$};
+  \draw[dashed, color=blue] (P) -- (Pz) node[left] {\scriptsize $s_3$};
+
+  \tdplotdrawarc{(O)}{0.3*\rvec}{0}{\phivec}{anchor=north}{\scriptsize $2\tau$};
+
+  \tdplotsetthetaplanecoords{\phivec};
+  \tdplotdrawarc[tdplot_rotated_coords]{(O)}{0.3*\rvec}{\thetavec}{90}{anchor=south west, xshift=-0.1cm}{\scriptsize $2\varepsilon$};
+
+\end{tikzpicture}
+\end{document}
