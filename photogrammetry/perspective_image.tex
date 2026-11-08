@@ -1,0 +1,86 @@
+\documentclass[tikz,border=5pt]{standalone}
+\usepackage{tikz}
+\usepackage{tikz-3dplot}
+
+\begin{document}
+
+\tdplotsetmaincoords{65}{120}
+
+\def\focalLength{2}
+\def\focalOffset{1}
+\def\lensHeight{6}
+\def\groundSize{4}
+\def\pointX{-0.5}
+\def\pointY{0.5}
+
+\pgfmathsetmacro{\planeSize}{\groundSize * (\focalLength / \lensHeight)}
+\pgfmathsetmacro{\positiveHeight}{\lensHeight - \focalLength}
+\pgfmathsetmacro{\negativeHeight}{\lensHeight + \focalLength}
+\pgfmathsetmacro{\planeAxis}{1.3*\planeSize}
+
+\begin{tikzpicture}[tdplot_main_coords]
+
+  \coordinate(L) at (0,0,\lensHeight);
+
+  % ground
+  \coordinate(O) at (0,0,0);
+  \coordinate(A) at (\groundSize, \groundSize,0);
+  \coordinate(B) at (-\groundSize, \groundSize, 0);
+  \coordinate(C) at (-\groundSize, -\groundSize, 0);
+  \coordinate(D) at (\groundSize, -\groundSize, 0);
+  \coordinate(E) at (\pointX*\groundSize, \pointY*\groundSize, 0);
+
+  \draw (A) node[below] {$A$} -- (B) node[below] {$B$} -- (C) node[below] {$C$} -- (D) node[below] {$D$} -- cycle;
+
+  % positive plane
+  \coordinate(o) at (0,0, \positiveHeight);
+  \coordinate(a) at (\planeSize, \planeSize, \positiveHeight);
+  \coordinate(b) at (-\planeSize, \planeSize, \positiveHeight);
+  \coordinate(c) at (-\planeSize, -\planeSize, \positiveHeight);
+  \coordinate(d) at (\planeSize, -\planeSize, \positiveHeight);
+  \coordinate(e) at (\pointX*\planeSize, \pointY*\planeSize, \positiveHeight);
+
+  \draw (a) node[right] {$a$} -- (b) node[above right] {$b$} -- (c) node[below right, xshift=-0.1cm] {$c$} -- (d) node[above left] {$d$} -- cycle;
+
+  \draw [->] (-\planeSize,0,\positiveHeight) -- (\planeAxis,0,\positiveHeight) node[below] {$x$};
+  \draw [->] (0,-\planeSize,\positiveHeight) -- (0,\planeAxis,\positiveHeight) node[right] {$y$};
+
+  \draw (O) node[circle, fill, inner sep=1pt] {} node[below] {$O$} -- (o) node[circle, fill, inner sep=1pt] {} node[above left] {$o$};
+  \draw (E) node[circle, fill, inner sep=1pt] {} node[right] {$E$} -- (e) node[circle, fill, inner sep=1pt] {} node[right] {$e$};
+
+  % negative plane
+  \coordinate(o') at (0,0, \negativeHeight);
+  \coordinate(a') at (-\planeSize, -\planeSize, \negativeHeight);
+  \coordinate(b') at (\planeSize, -\planeSize, \negativeHeight);
+  \coordinate(c') at (\planeSize, \planeSize, \negativeHeight);
+  \coordinate(d') at (-\planeSize, \planeSize, \negativeHeight);
+  \coordinate(e') at (-\pointX*\planeSize, -\pointY*\planeSize, \negativeHeight);
+
+  \draw (a') node[above] {$a'$} -- (b') node[above] {$b'$} -- (c') node[above] {$c'$} -- (d') node[above right] {$d'$} -- cycle;
+
+  \draw (e) -- (e') node[circle, fill, inner sep=1pt] {} node[left] {$e'$};
+  \draw (o) -- (o') node[circle, fill, inner sep=1pt] {} node[above] {$o'$};
+
+  \draw [->] (\planeSize,0,\negativeHeight) -- (-\planeAxis,0,\negativeHeight) node[above] {$x'$};
+  \draw [->] (0,\planeSize,\negativeHeight) -- (0,-\planeAxis,\negativeHeight) node[above right] {$y'$};
+
+  \draw (A) -- (a');
+  \draw (B) -- (b');
+  \draw (C) -- (c');
+  \draw (D) -- (d');
+
+  % focal lengths
+  \coordinate(f) at (0, -\planeSize - \focalOffset, \positiveHeight);
+  \coordinate(f') at (0, -\planeSize - \focalOffset, \negativeHeight);
+  \coordinate(L') at (0, -\planeSize - \focalOffset, \lensHeight);
+
+  \draw [dashed] (0, -\planeSize, \positiveHeight) -- (f);
+  \draw [<->] (f) -- (L') node[midway, left] {$f$};
+
+  \draw [dashed] (0, -\planeSize, \negativeHeight) -- (f');
+  \draw [<->] (L') -- (f') node[midway, left] {$f'$};
+
+  \draw [dashed] (L) -- (L');
+
+\end{tikzpicture}
+\end{document}
